@@ -446,6 +446,19 @@ namespace IEX {
 
             return data;
         }
+        
+        static std::vector<std::string> getSymbolList(){
+            std::string url(IEX_API_V1_ENDPOINT);
+            url += "/ref-data/symbols";
+            std::vector<std::string> symbolList;
+           
+            Json::Value json_data;
+            IEX::sendGetRequest(json_data, url,httpRequestToStringCallback);
+            
+            parseSymbolData(json_data, symbolList);
+            
+            return symbolList;
+        }
     };
 }  // namespace IEX
 
