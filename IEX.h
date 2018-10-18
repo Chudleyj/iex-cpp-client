@@ -96,6 +96,16 @@ namespace IEX {
             out->append(in, totalBytes);
             return totalBytes;
         }
+        
+        static void parseSymbolData(const Json::Value &json_data, std::vector<std::string> &symbolVec){
+            int i = 0;
+            
+            //Step through JSON file until the end is reached
+            while(i < json_data.size()) {
+                symbolVec.push_back(json_data[i]["symbol"].asString());
+                i++;
+            }
+        }
     }  // namespace
 
     enum class Period { annual, quarter };
