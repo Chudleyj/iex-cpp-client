@@ -11,6 +11,8 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <algorithm> //std::find
+#include <boost/algorithm/string.hpp> //boost::to_upper
 
 #ifndef IEX_H_INCLUDED
 #define IEX_H_INCLUDED

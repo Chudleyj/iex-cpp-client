@@ -2,6 +2,40 @@
 
 using namespace std;
 
+void parseSymbolData(const Json::Value &IEXdata, std::vector<std::string> &symbolVec)
+{
+    int i = 0;
+    
+    //Step through JSON file until the end is reached
+    while(i < IEXdata.size()) {
+        symbolVec.push_back(IEXdata[i]["symbol"].asString());
+        i++;
+    }
+}
+
+std::vector<std::string> getSymbolList()
+{
+    Json::Value jsonData;
+    std::string url(IEX_ENDPOINT);
+    std::vector<std::string> symbolList;
+    url += "/ref-data/symbols";
+    IEX::sendGetRequest(jsonData, url);
+    parseSymbolData(jsonData, symbolList);
+    return symbolList;
+    
+}
+
+bool isValidSymbol(const std::string &symbol)
+{
+    std::vector<std::string> symbolList = getSymbolList();
+    std::string symbolCopy = symbol;
+    boost::to_upper(symbolCopy);
+    if (std::find(symbolList.begin(), symbolList.end(), symbolCopy) != symbolList.end())
+        return true;
+    
+    return false;
+}
+
 void print_price(const std::string& symbol) {
     IEX::PriceData stock;
     stock = IEX::Stock::getPrice(symbol);
