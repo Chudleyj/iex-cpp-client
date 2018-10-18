@@ -16,7 +16,7 @@ void parseSymbolData(const Json::Value &IEXdata, std::vector<std::string> &symbo
 std::vector<std::string> getSymbolList()
 {
     Json::Value jsonData;
-    std::string url(IEX_ENDPOINT);
+    std::string url(IEX_API_V1_ENDPOINT);
     std::vector<std::string> symbolList;
     url += "/ref-data/symbols";
     IEX::sendGetRequest(jsonData, url);
